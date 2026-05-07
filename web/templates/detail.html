@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}{{ result.name }} - EMA-99 Backtester{% endblock %}
+{% block content %}
+<h1>{{ result.name }}</h1>
+<div class="result-details">
+    <h2>Performance Metrics</h2>
+    <table class="metrics-table">
+        <tr><th>MA Type</th><td>{{ result.ma_type }} ({{ result.ma_period }})</td></tr>
+        <tr><th>Confirmation Candles</th><td>{{ result.confirmation_candles }}</td></tr>
+        <tr><th>Direction</th><td>{{ result.direction }}</td></tr>
+        <tr><th>Return [%]</th><td>{{ result.return_pct }}</td></tr>
+        <tr><th>Sharpe Ratio</th><td>{{ result.sharpe }}</td></tr>
+        <tr><th>Max Drawdown</th><td>{{ result.max_dd }}</td></tr>
+        <tr><th>Win Rate [%]</th><td>{{ result.win_rate }}</td></tr>
+        <tr><th># Trades</th><td>{{ result.num_trades }}</td></tr>
+        <tr><th>Avg Trade [%]</th><td>{{ result.avg_trade }}</td></tr>
+        <tr><th>Best Trade [%]</th><td>{{ result.best_trade }}</td></tr>
+        <tr><th>Worst Trade [%]</th><td>{{ result.worst_trade }}</td></tr>
+    </table>
+
+    <h2>Chart</h2>
+    <div class="chart-container">
+        <iframe src="../../results/{{ result.id }}/chart.html" width="100%" height="600"></iframe>
+    </div>
+
+    <h2>Trade Log</h2>
+    <div class="trades-table-container">
+        {{ result.trades_html | safe }}
+    </div>
+</div>
+{% endblock %}

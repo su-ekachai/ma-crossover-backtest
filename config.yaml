@@ -1,0 +1,24 @@
+strategy:
+  ma_type: EMA              # EMA or SMA
+  ma_period: 99
+  confirmation_candles: 0   # 0 = no confirmation
+  direction: both           # long_only, short_only, both
+
+sizing:
+  mode: all_in              # all_in, fixed, percentage
+  fixed_amount: 1000        # used when mode=fixed
+  risk_percentage: 0.02     # used when mode=percentage
+
+backtest:
+  initial_cash: 10000
+  commission: 0.001         # 0.1% per trade
+
+data:
+  path: data/BTCUSDT_1h.csv
+  timeframe: 1h             # target timeframe (resample if source is smaller)
+
+questdb:
+  host: localhost
+  port: 8812
+  user: admin
+  password: quest

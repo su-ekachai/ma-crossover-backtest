@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Results - EMA-99 Backtester{% endblock %}
+{% block content %}
+<h1>Backtest Results</h1>
+<div class="results-list">
+    {% for result in results %}
+    <div class="result-card">
+        <h2><a href="{{ url_for('result', result_id=result.id) }}">{{ result.name }}</a></h2>
+        <p>MA: {{ result.ma_type }}{{ result.ma_period }} | Confirm: {{ result.confirmation_candles }} | Direction: {{ result.direction }}</p>
+        <p>Return: {{ result.return_pct }}% | Sharpe: {{ result.sharpe }} | Trades: {{ result.num_trades }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

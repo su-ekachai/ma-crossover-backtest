@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Compare - EMA-99 Backtester{% endblock %}
+{% block content %}
+<h1>Compare Results</h1>
+<form method="get" action="{{ url_for('compare') }}">
+    <label>Select results to compare:</label>
+    <div class="results-checkboxes">
+        {% for result in results %}
+        <label>
+            <input type="checkbox" name="results" value="{{ result.id }}"
+                {% if result.id in selected_ids %}checked{% endif %}>
+            {{ result.id }}
+        </label><br>
+        {% endfor %}
+    </div>
+    <button type="submit">Compare</button>
+</form>
+
+{% if selected %}
+<h2>Comparison Table</h2>
+<table class="comparison-table">
+    <thead>
+        <tr>
+            <th>Result</th>
+            <th>MA</th>
+            <th>Confirm</th>
+            <th>Direction</th>
+            <th>Return [%]</th>
+            <th>Sharpe</th>
+            <th>Max DD [%]</th>
+            <th>Trades</th>
+            <th>Win Rate [%]</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in selected %}
+        <tr>
+            <td><a href="{{ url_for('result', result_id=r.id) }}">{{ r.id }}</a></td>
+            <td>{{ r.ma_type }}{{ r.ma_period }}</td>
+            <td>{{ r.get('confirmation_candles', 'N/A') }}</td>
+            <td>{{ r.get('direction', 'N/A') }}</td>
+            <td>{{ r.return_pct }}</td>
+            <td>{{ r.sharpe }}</td>
+            <td>{{ r.max_dd }}</td>
+            <td>{{ r.num_trades }}</td>
+            <td>{{ r.win_rate }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}
